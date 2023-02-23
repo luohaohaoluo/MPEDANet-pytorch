@@ -1,4 +1,6 @@
 Here, put your dataset , the following is reguler:
+
+'''bash
 \dataset 
  
  --- BraTS2021_0000
@@ -9,4 +11,6 @@ Here, put your dataset , the following is reguler:
       --- BraTS2021_0000_flair.nii
       ......
   .....
+'''
+
   
