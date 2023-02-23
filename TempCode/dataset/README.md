@@ -1,16 +1,14 @@
 Here, put your dataset , the following is reguler:
 
-'''bash
-\dataset 
+
+- \dataset 
  
- --- BraTS2021_0000
- 
- 
-      --- BraTS2021_0000_t1.nii
-      --- BraTS2021_0000_t2.nii
-      --- BraTS2021_0000_flair.nii
-      ......
-  .....
-'''
+  - --- BraTS2021_0000
+   - --- BraTS2021_0000_t1.nii
+   - --- BraTS2021_0000_t2.nii
+   - --- BraTS2021_0000_flair.nii
+   - ......
+  - .....
+
 
   
