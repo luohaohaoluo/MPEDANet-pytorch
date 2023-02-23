@@ -1,0 +1,40 @@
+Epoch:[1/20] train_loss: 0.344 valid_loss: 0.236 
+Train--ET: 0.370 TC: 0.338 WT: 0.743  Valid--ET: 0.700 TC: 0.652 WT: 0.844 
+Epoch:[2/20] train_loss: 0.233 valid_loss: 0.238 
+Train--ET: 0.703 TC: 0.670 WT: 0.837  Valid--ET: 0.736 TC: 0.720 WT: 0.814 
+Epoch:[3/20] train_loss: 0.212 valid_loss: 0.190 
+Train--ET: 0.718 TC: 0.711 WT: 0.845  Valid--ET: 0.750 TC: 0.732 WT: 0.871 
+Epoch:[4/20] train_loss: 0.195 valid_loss: 0.172 
+Train--ET: 0.736 TC: 0.730 WT: 0.856  Valid--ET: 0.763 TC: 0.752 WT: 0.880 
+Epoch:[5/20] train_loss: 0.187 valid_loss: 0.181 
+Train--ET: 0.748 TC: 0.742 WT: 0.864  Valid--ET: 0.742 TC: 0.750 WT: 0.868 
+Epoch:[6/20] train_loss: 0.184 valid_loss: 0.167 
+Train--ET: 0.741 TC: 0.739 WT: 0.866  Valid--ET: 0.764 TC: 0.762 WT: 0.882 
+Epoch:[7/20] train_loss: 0.181 valid_loss: 0.170 
+Train--ET: 0.751 TC: 0.752 WT: 0.866  Valid--ET: 0.765 TC: 0.761 WT: 0.884 
+Epoch:[8/20] train_loss: 0.173 valid_loss: 0.151 
+Train--ET: 0.759 TC: 0.768 WT: 0.871  Valid--ET: 0.780 TC: 0.791 WT: 0.888 
+Epoch:[9/20] train_loss: 0.171 valid_loss: 0.180 
+Train--ET: 0.760 TC: 0.768 WT: 0.869  Valid--ET: 0.768 TC: 0.753 WT: 0.875 
+Epoch:[10/20] train_loss: 0.166 valid_loss: 0.153 
+Train--ET: 0.760 TC: 0.775 WT: 0.872  Valid--ET: 0.783 TC: 0.802 WT: 0.882 
+Epoch:[11/20] train_loss: 0.165 valid_loss: 0.139 
+Train--ET: 0.761 TC: 0.780 WT: 0.872  Valid--ET: 0.790 TC: 0.819 WT: 0.896 
+Epoch:[12/20] train_loss: 0.161 valid_loss: 0.140 
+Train--ET: 0.763 TC: 0.790 WT: 0.874  Valid--ET: 0.797 TC: 0.824 WT: 0.893 
+Epoch:[13/20] train_loss: 0.157 valid_loss: 0.141 
+Train--ET: 0.767 TC: 0.792 WT: 0.876  Valid--ET: 0.794 TC: 0.831 WT: 0.892 
+Epoch:[14/20] train_loss: 0.154 valid_loss: 0.146 
+Train--ET: 0.772 TC: 0.801 WT: 0.877  Valid--ET: 0.783 TC: 0.821 WT: 0.881 
+Epoch:[15/20] train_loss: 0.156 valid_loss: 0.133 
+Train--ET: 0.769 TC: 0.796 WT: 0.874  Valid--ET: 0.785 TC: 0.830 WT: 0.896 
+Epoch:[16/20] train_loss: 0.156 valid_loss: 0.133 
+Train--ET: 0.767 TC: 0.790 WT: 0.875  Valid--ET: 0.795 TC: 0.844 WT: 0.898 
+Epoch:[17/20] train_loss: 0.152 valid_loss: 0.147 
+Train--ET: 0.769 TC: 0.802 WT: 0.877  Valid--ET: 0.787 TC: 0.816 WT: 0.889 
+Epoch:[18/20] train_loss: 0.152 valid_loss: 0.132 
+Train--ET: 0.771 TC: 0.802 WT: 0.878  Valid--ET: 0.790 TC: 0.844 WT: 0.897 
+Epoch:[19/20] train_loss: 0.151 valid_loss: 0.137 
+Train--ET: 0.774 TC: 0.804 WT: 0.878  Valid--ET: 0.785 TC: 0.824 WT: 0.893 
+Epoch:[20/20] train_loss: 0.149 valid_loss: 0.130 
+Train--ET: 0.775 TC: 0.805 WT: 0.881  Valid--ET: 0.797 TC: 0.837 WT: 0.900 
