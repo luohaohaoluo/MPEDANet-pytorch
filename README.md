@@ -1,5 +1,8 @@
 # SAMRNet-pytorch
-  we all code in the code_pytorch fload.
+  we all code in the code_pytorch folder.
+
+# Model structure
+![SAMRNet](./picture/Net.png)
 
 # How to start quickly.
   ```bash
