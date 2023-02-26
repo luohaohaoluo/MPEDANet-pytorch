@@ -5,8 +5,8 @@
 
 # SAMRNet-pytorch
   Firstly, you should into TempCode.
-  - *code_pytorch*: all code in here
-  - *dataset*: put the dataset
+  - **code_pytorch**: all code in here
+  - **dataset**: put the dataset
 
 # Model structure
 ![SAMRNet](./picture/Net.png)
