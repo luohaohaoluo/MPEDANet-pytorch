@@ -3,13 +3,13 @@
 
 :point_down: :point_down: :point_down:
 
-# DAMPENet-pytorch
+# MPEDANet-pytorch
   Firstly, you should into TempCode.
   - **code_pytorch**: all code in here
   - **dataset**: put the dataset
 
 # Model structure
-![DAMPE-Net](./picture/DAMPENet.jpg)
+![MPEDA-Net](./picture/MPEDANet.jpg)
 
 # How to start quickly.
   ```bash
