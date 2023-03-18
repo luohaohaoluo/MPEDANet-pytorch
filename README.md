@@ -3,7 +3,7 @@
 
 :point_down: :point_down: :point_down:
 
-# SAMRNet-pytorch
+# DAMPENet-pytorch
   Firstly, you should into TempCode.
   - **code_pytorch**: all code in here
   - **dataset**: put the dataset
