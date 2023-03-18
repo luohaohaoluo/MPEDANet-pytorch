@@ -185,7 +185,7 @@ def main(args):
         print('Successfully loading checkpoint.')
 
     metrics2 = val_loop(model, criterion, val_loader, device)
-    # metrics3 = val_loop(model, criterion, test_loader, device)
+    metrics3 = val_loop(model, criterion, test_loader, device)
 
     print("Valid -- loss: {:.5f} ET: {:.5f} TC: {:.5f} WT: {:.5f}".format(metrics2['loss'], metrics2['dice1'],
                                                                           metrics2['dice2'], metrics2['dice3']))
@@ -197,15 +197,14 @@ def main(args):
                                                                       metrics2['ds_tc']))
 
 
-
-    # print("Test  -- loss: {:.5f} ET: {:.5f} TC: {:.5f} WT: {:.5f}".format(metrics3['loss'], metrics3['dice1'],
-    #                                                                       metrics3['dice2'], metrics3['dice3']))
-    # print("Test -- sen_WT: {:.5f} sen_ET: {:.5f} sen_TC: {:.5f}".format(metrics3['sen_WT'], metrics3['sen_ET'],
-    #                                                                     metrics3['sen_TC']))
-    # print("Test -- spe_WT: {:.5f} spe_ET: {:.5f} spe_TC: {:.5f}".format(metrics3['spe_WT'], metrics3['spe_ET'],
-    #                                                                     metrics3['spe_TC']))
-    # print("Test -- ds_wt: {:.3f} ds_et: {:.3f} ds_tc: {:.3f}".format(metrics3['ds_wt'], metrics3['ds_et'],
-    #                                                                  metrics3['ds_tc']))
+    print("Test  -- loss: {:.5f} ET: {:.5f} TC: {:.5f} WT: {:.5f}".format(metrics3['loss'], metrics3['dice1'],
+                                                                          metrics3['dice2'], metrics3['dice3']))
+    print("Test -- sen_WT: {:.5f} sen_ET: {:.5f} sen_TC: {:.5f}".format(metrics3['sen_WT'], metrics3['sen_ET'],
+                                                                        metrics3['sen_TC']))
+    print("Test -- spe_WT: {:.5f} spe_ET: {:.5f} spe_TC: {:.5f}".format(metrics3['spe_WT'], metrics3['spe_ET'],
+                                                                        metrics3['spe_TC']))
+    print("Test -- ds_wt: {:.3f} ds_et: {:.3f} ds_tc: {:.3f}".format(metrics3['ds_wt'], metrics3['ds_et'],
+                                                                     metrics3['ds_tc']))
 
 
 if __name__ == '__main__':

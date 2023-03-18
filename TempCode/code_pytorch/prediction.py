@@ -102,7 +102,7 @@ def main(args, saving=False):
     print("using {} device.".format(device))
 
     # data info
-    case = '00084'
+    case = '00072'
     data_path = f"../dataset/brats2021/data/BraTS2021_{case}"
     patch_size = (160, 160, 64)
     image, label = load_pic(data_path, trans=transforms.Compose([

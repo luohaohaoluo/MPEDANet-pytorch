@@ -1,3 +1,7 @@
+"""
+draw the train_loss and val_loss of each models
+"""
+
 import matplotlib.pyplot as plt
 
 
@@ -29,7 +33,7 @@ if __name__ == "__main__":
     data_path2 = './MyNet.txt'
     data_path3 = './UNet.txt'
     data_path4 = './Zhengrong_Luo.txt'
-    data_path5 = './LiuLiangLiang/txt'
+    data_path5 = './LiuLiangLiang.txt'
 
     with open(data_path1, 'r') as f:
         data1 = f.readlines()

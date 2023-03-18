@@ -39,7 +39,8 @@ def draw_box_bar(data_et, data_wt, data_tc, box_labels, bar_labels, data_bar):
     ax1[1][0].set_ylim(0, 1.0)
 
     # fill with colors
-    colors = ['#e484d9', '#a2e470', '#dae47d', '#02a0e4']
+    # colors = ['#e484d9', '#a2e470', '#dae47d', '#02a0e4']
+    colors = ['#8ECFC9', '#FFBE7A', '#FA7F6F', '#82B0D2']
     for bplot in (bplot1, bplot2, bplot3):
         for patch, color in zip(bplot['boxes'], colors):
             patch.set_facecolor(color)
@@ -47,7 +48,7 @@ def draw_box_bar(data_et, data_wt, data_tc, box_labels, bar_labels, data_bar):
     # Add some text for labels, title and custom x-axis tick labels, etc.
     for i, (attribute, measurement) in enumerate(data_bar.items()):
         offset = width * multiplier
-        ax1[1][1].bar(x + offset, measurement, width, label=attribute, color=colors[i])
+        ax1[1][1].bar(x + offset, measurement, width, label=attribute, color=colors[i], edgecolor='black')
         multiplier += 1
 
     ax1[1][1].set_ylabel('Dice score', fontsize=size, weight='bold')
