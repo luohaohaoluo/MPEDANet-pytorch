@@ -9,7 +9,7 @@
   - **dataset**: put the dataset
 
 # Model structure
-![SAMRNet](./picture/Net.png)
+![DAMPE-Net](./picture/DAMPENet.jpg)
 
 # How to start quickly.
   ```bash
