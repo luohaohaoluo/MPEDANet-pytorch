@@ -160,9 +160,9 @@ if __name__ == "__main__":
     labels_bar = ("ET", "WT", "TC")
     data_bar = {
         'baseline': (78.82, 87.91, 82.64),
-        'baseline+RSA': (77.63, 87.06, 80.01),
-        'baseline+MRF': (82.78, 92.05, 87.16),
-        'SAMRNet': (82.23, 92.23, 86.68),
+        'baseline+DA': (80.63, 90.06, 83.01),
+        'baseline+MPE': (82.08, 92.05, 85.16),
+        'MPEDA-Net': (82.23, 92.23, 86.68),
     }
 
     draw_box_bar(data_et, data_wt, data_tc, labels_box, labels_bar, data_bar)

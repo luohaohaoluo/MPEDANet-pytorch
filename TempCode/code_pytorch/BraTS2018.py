@@ -5,6 +5,7 @@ import numpy as np
 import h5py
 import matplotlib.pyplot as plt
 import SimpleITK as sitk
+import pathlib
 
 from torchvision import transforms
 from torch.utils.data import Dataset
@@ -120,20 +121,21 @@ class ToTensor(object):
         return {'image': image, 'label': label}
 
 
-class BraTS2021(Dataset):
-    def __init__(self, data_path, file_path, transform=None):
-        with open(file_path, 'r') as f:
-            self.paths = [os.path.join(data_path, x.strip()) for x in f.readlines()]
-        # print(self.paths)
+class BraTS2018(Dataset):
+    def __init__(self, data_path, transform=None):
+
+        self.paths = list(pathlib.Path(data_path).glob("Brats18*"))
+        # print(str(self.paths[0]).split('\\')[-1])  # Windows
+        # print(str(self.paths[0]).split('/')[-1])  # Linux
         self.transform = transform
 
     def __getitem__(self, item):
 
-        label = sitk.GetArrayFromImage(sitk.ReadImage(self.paths[item] + '/' + self.paths[item][-15:] + '_seg.nii.gz')).transpose(1, 2, 0)
+        label = sitk.GetArrayFromImage(sitk.ReadImage(str(self.paths[item]) + '/' + str(self.paths[item]).split('/')[-1] + '_seg.nii')).transpose(1, 2, 0)
         # print(label.shape)
         # 堆叠四种模态的图像，4 x (H,W,D) -> (4,H,W,D)
         images = np.stack(
-            [sitk.GetArrayFromImage(sitk.ReadImage(self.paths[item] + '/' + self.paths[item][-15:] + modal + '.nii.gz')).transpose(1, 2, 0) for modal in
+            [sitk.GetArrayFromImage(sitk.ReadImage(str(self.paths[item]) + '/' + str(self.paths[item]).split('/')[-1] + modal + '.nii')).transpose(1, 2, 0) for modal in
              modalities],
             0)  # [240,240,155]
         # 数据类型转换
@@ -166,55 +168,18 @@ class BraTS2021(Dataset):
     def collate(self, batch):
         return [torch.cat(v) for v in zip(*batch)]
 
-# class BraTS2021(Dataset):
-#     def __init__(self, data_path, file_path, transform=None):
-#         with open(file_path, 'r') as f:
-#             self.paths = [os.path.join(data_path, x.strip()) for x in f.readlines()]
-#         # print(self.paths)
-#         self.transform = transform
-#
-#     def __getitem__(self, item):
-#
-#         label = sitk.GetArrayFromImage(sitk.ReadImage(self.paths[item] + '/' + self.paths[item][-15:] + '_seg.nii.gz')).transpose(1, 2, 0)
-#         # print(label.shape)
-#         # 堆叠四种模态的图像，4 x (H,W,D) -> (4,H,W,D)
-#         images = np.stack(
-#             [sitk.GetArrayFromImage(sitk.ReadImage(self.paths[item] + '/' + self.paths[item][-15:] + modal + '.nii.gz')).transpose(1, 2, 0) for modal in
-#              modalities],
-#             0)  # [240,240,155]
-#         # 数据类型转换
-#         label = label.astype(np.uint8)
-#         images = images.astype(np.float32)
-#
-#         # 对第一个通道求和，如果四个模态都为0，则标记为背景(False)
-#
-#         # [0,1,2,4] -> [0,1,2,3]
-#         label[label == 4] = 3
-#         # print(image.shape)
-#         sample = {'image': images, 'label': label}
-#         if self.transform:
-#             sample = self.transform(sample)
-#         return sample['image'], sample['label']
-#
-#     def __len__(self):
-#         return len(self.paths)
-#
-#     def collate(self, batch):
-#         return [torch.cat(v) for v in zip(*batch)]
-
 
 if __name__ == '__main__':
     np.random.seed(21)
-    data_path = "../dataset/brats2021/data"
-    test_txt = "../dataset/brats2021/train.txt"
+    data_path = "../dataset/brats2018/data"
     size = (240, 240, 64)
-    test_set = BraTS2021(data_path, test_txt, transform=transforms.Compose([
-        # RandomRotFlip(),
+    test_set = BraTS2018(data_path, transform=transforms.Compose([
+        RandomRotFlip(),
         CenterCrop(size),
-        # GaussianNoise(p=0.1),
+        GaussianNoise(p=0.1),
         ToTensor()
     ]))
-    d1 = test_set[45]
+    d1 = test_set[30]
     image, label = d1
     print("image.shape:", image.shape)
     print("label.shape:", label.shape)

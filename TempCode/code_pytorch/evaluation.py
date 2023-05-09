@@ -12,6 +12,8 @@ from tqdm import tqdm
 =============================自己的包===========================
 """
 from BraTS2021 import *
+from BraTS2018 import *
+from BraTS2019 import *
 from utils import *
 
 from networks.MyNet.MyNet import MyNet
@@ -57,18 +59,18 @@ def val_loop(model, criterion, loader, device):
             dice2_val += dice2.item()
             dice3_val += dice3.item()
 
-            with open(f"{MODEL_NAME}_et.txt", 'a+') as f:
-                f.write("{:.3f}, ".format(dice1.item()))
-                if step % 20 == 0:
-                    f.write('\n')
-            with open(f"{MODEL_NAME}_wt.txt", 'a+') as f:
-                f.write("{:.3f}, ".format(dice3.item()))
-                if step % 20 == 0:
-                    f.write('\n')
-            with open(f"{MODEL_NAME}_tc.txt", 'a+') as f:
-                f.write("{:.3f}, ".format(dice2.item()))
-                if step % 20 == 0:
-                    f.write('\n')
+            # with open(f"{MODEL_NAME}_et.txt", 'a+') as f:
+            #     f.write("{:.3f}, ".format(dice1.item()))
+            #     if step % 20 == 0:
+            #         f.write('\n')
+            # with open(f"{MODEL_NAME}_wt.txt", 'a+') as f:
+            #     f.write("{:.3f}, ".format(dice3.item()))
+            #     if step % 20 == 0:
+            #         f.write('\n')
+            # with open(f"{MODEL_NAME}_tc.txt", 'a+') as f:
+            #     f.write("{:.3f}, ".format(dice2.item()))
+            #     if step % 20 == 0:
+            #         f.write('\n')
 
             pbar.set_postfix(loss=f"{loss:.3f}", dice1=f'{dice1:.3f}', dice2=f"{dice2:.3f}", dice3=f"{dice3:.3f}")
 
@@ -134,17 +136,26 @@ def main(args):
         CenterCrop(patch_size),
         ToTensor()
     ]))
-    test_dataset = BraTS2021(args.data_path, args.test_txt, transform=transforms.Compose([
+    # test_dataset = BraTS2021(args.data_path, args.test_txt, transform=transforms.Compose([
+    #     CenterCrop(patch_size),
+    #     ToTensor()
+    # ]))
+    data_path = "../dataset/brats2019/data"
+    patch_size = (128, 128, 64)
+    test_dataset = BraTS2019(data_path, transform=transforms.Compose([
+        RandomRotFlip(),
         CenterCrop(patch_size),
+        GaussianNoise(p=0.1),
         ToTensor()
     ]))
-
     # train_loader = DataLoader(dataset=train_dataset, batch_size=args.batch_size, num_workers=8,  # num_worker=4
     #                           shuffle=True, pin_memory=True)
     val_loader = DataLoader(dataset=val_dataset, batch_size=args.batch_size, num_workers=8, shuffle=False,
                             pin_memory=True)
     test_loader = DataLoader(dataset=test_dataset, batch_size=args.batch_size, num_workers=8, shuffle=False,
                              pin_memory=True)
+
+
 
     print("using {} device.".format(device))
     print("using {} images for validation, {} images for testing.".format(len(val_dataset), len(test_dataset)))
@@ -184,17 +195,17 @@ def main(args):
         model.load_state_dict(weight_dict['model'])
         print('Successfully loading checkpoint.')
 
-    metrics2 = val_loop(model, criterion, val_loader, device)
+    # metrics2 = val_loop(model, criterion, val_loader, device)
     metrics3 = val_loop(model, criterion, test_loader, device)
 
-    print("Valid -- loss: {:.5f} ET: {:.5f} TC: {:.5f} WT: {:.5f}".format(metrics2['loss'], metrics2['dice1'],
-                                                                          metrics2['dice2'], metrics2['dice3']))
-    print("Valid -- sen_WT: {:.5f} sen_ET: {:.5f} sen_TC: {:.5f}".format(metrics2['sen_WT'], metrics2['sen_ET'],
-                                                                         metrics2['sen_TC']))
-    print("Valid -- spe_WT: {:.5f} spe_ET: {:.5f} spe_TC: {:.5f}".format(metrics2['spe_WT'], metrics2['spe_ET'],
-                                                                         metrics2['spe_TC']))
-    print("Valid -- ds_wt: {:.3f} ds_et: {:.3f} ds_tc: {:.3f}".format(metrics2['ds_wt'], metrics2['ds_et'],
-                                                                      metrics2['ds_tc']))
+    # print("Valid -- loss: {:.5f} ET: {:.5f} TC: {:.5f} WT: {:.5f}".format(metrics2['loss'], metrics2['dice1'],
+    #                                                                       metrics2['dice2'], metrics2['dice3']))
+    # print("Valid -- sen_WT: {:.5f} sen_ET: {:.5f} sen_TC: {:.5f}".format(metrics2['sen_WT'], metrics2['sen_ET'],
+    #                                                                      metrics2['sen_TC']))
+    # print("Valid -- spe_WT: {:.5f} spe_ET: {:.5f} spe_TC: {:.5f}".format(metrics2['spe_WT'], metrics2['spe_ET'],
+    #                                                                      metrics2['spe_TC']))
+    # print("Valid -- ds_wt: {:.3f} ds_et: {:.3f} ds_tc: {:.3f}".format(metrics2['ds_wt'], metrics2['ds_et'],
+    #                                                                   metrics2['ds_tc']))
 
 
     print("Test  -- loss: {:.5f} ET: {:.5f} TC: {:.5f} WT: {:.5f}".format(metrics3['loss'], metrics3['dice1'],
@@ -208,7 +219,6 @@ def main(args):
 
 
 if __name__ == '__main__':
-    # MODEL_NAME = 'ZhaoXiangYu'
     MODEL_NAME = 'MyNet'
     # MODEL_NAME = 'PeirisHimashi'
     # MODEL_NAME = 'Yi_Ding'

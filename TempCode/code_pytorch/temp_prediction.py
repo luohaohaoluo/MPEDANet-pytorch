@@ -1,6 +1,6 @@
 import os
 import argparse
-
+import time
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -10,6 +10,8 @@ from torchvision.transforms import transforms
 =============================自己的包===========================
 """
 from BraTS2021 import *
+from BraTS2018 import *
+from BraTS2019 import *
 from utils import *
 
 from networks.Unet import UNet
@@ -37,13 +39,22 @@ def main(args):
     # data info
     data_path = "../dataset/brats2021/data"
     test_txt = "../dataset/brats2021/train.txt"
-    patch_size = (240, 240, 64)
+    patch_size = (128, 128, 64)
     test_set = BraTS2021(data_path, test_txt, transform=transforms.Compose([
         # RandomRotFlip(),
         CenterCrop(patch_size),
-        # GaussianNoise(p=0.1),
+        GaussianNoise(p=0.1),
         ToTensor()
     ]))
+
+    # data_path = "../dataset/brats2018/data"
+    # patch_size = (128, 128, 64)
+    # test_set = BraTS2018(data_path, transform=transforms.Compose([
+    #     RandomRotFlip(),
+    #     CenterCrop(patch_size),
+    #     GaussianNoise(p=0.1),
+    #     ToTensor()
+    # ]))
 
     print("using {} device.".format(device))
 
@@ -76,13 +87,16 @@ def main(args):
         print('Successfully loading checkpoint.')
 
     model.eval()
-    # (86,45) (36,30) (28,45)
-    d1 = test_set[45]
+    # (86,45) (36,30) (28,45) 45,40 -- train
+    d1 = test_set[86]
+    slice_w = 45
     image, label = d1
     print("image.shape:", image.shape)
     print("label.shape:", label.shape)
 
+    strat = time.time()
     output = model(image.unsqueeze(dim=0).to(device))
+    print(f"one sample cost {time.time()-strat}")
     pre = torch.argmax(output, dim=1)
     print("torch.unique(pre):", torch.unique(pre))
     pre = pre.squeeze(dim=0).cpu().numpy()
@@ -113,7 +127,7 @@ def main(args):
     # dis = hausdorff_distance_TC(torch.from_numpy(oh_output),  torch.from_numpy(oh_label))
     # print("distance_TC:", dis)
 
-    slice_w = 40
+
     # fig, (ax1, ax2, ax3, ax4, ax5, ax6) = plt.subplots(1, 6, figsize=(20, 10))
     # ax1.imshow(image[0, :, :, slice_w], cmap='gray')
     # ax1.set_title('Image flair')
@@ -181,7 +195,7 @@ def main(args):
     color_segmentation[mask_segmentation == 2] = [23, 102, 17]
     color_segmentation[mask_segmentation == 3] = [250, 246, 45]
     axarr[1][0].imshow(color_segmentation.astype('uint8'))
-    axarr[0][1].imshow(color_segmentation.astype('uint8'), alpha=0.4)
+    # axarr[0][1].imshow(color_segmentation.astype('uint8'), alpha=0.4)
     axarr[1][0].title.set_text('Ground truth')
     axarr[1][0].axis('off')
 
@@ -254,14 +268,14 @@ def main(args):
 
 if __name__ == "__main__":
     # MODEL_NAME = 'UNet'
-    MODEL_NAME = 'MyNet'
+    # MODEL_NAME = 'MyNet'
     # MODEL_NAME = 'Yi_Ding'
     # MODEL_NAME = 'Zhengrong_Luo'
     # MODEL_NAME = 'LiuLiangLiang'
     # MODEL_NAME = 'PeirisHimashi'
     # MODEL_NAME = 'TheophrasteHenry'
     # MODEL_NAME = 'ChenChen'
-    # MODEL_NAME = 'lslam'
+    MODEL_NAME = 'lslam'
     parser = argparse.ArgumentParser()
     parser.add_argument('--num_classes', type=int, default=4)
     parser.add_argument('--seed', type=int, default=21)
